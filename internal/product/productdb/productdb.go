@@ -15,6 +15,7 @@ func BuildDB() {
 	startProducts["CD do dead fish"] = "music"
 	startProducts["Jockey 365"] = "bar"
 	startProducts["Mcbook"] = "technology"
+	startProducts["camisa do sport 2"] = "clothing"
 
 	MemoryDB = make(map[string]*productentities.Product)
 

@@ -5,10 +5,11 @@ import (
 
 	"github.com/odanaraujo/stock-api/internal/encode"
 	"github.com/odanaraujo/stock-api/internal/product/productdecode"
+	"github.com/odanaraujo/stock-api/internal/product/productdomain/productrepositories"
 	"github.com/odanaraujo/stock-api/internal/product/productdomain/productservice"
 )
 
-var productService = productservice.New()
+var productService = productservice.New(*productrepositories.New())
 
 func GetProductByIDHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()

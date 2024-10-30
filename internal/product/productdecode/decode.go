@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/odanaraujo/stock-api/internal/product/productdomain/productentities"
 )
 
@@ -19,7 +19,6 @@ func DecodeProductFromBody(r *http.Request) (*productentities.Product, error) {
 	return createProduct, nil
 }
 
-// get param with id of product
 func DecodeStringIDFromURI(r *http.Request) (string, error) {
 	id := chi.URLParam(r, "id")
 	if id == "" {
