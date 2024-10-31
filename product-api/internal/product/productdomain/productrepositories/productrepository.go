@@ -38,7 +38,7 @@ func (p *ProductRepository) Search(_ context.Context, productType string) ([]*pr
 	args = append(args, productType)
 
 	tx := p.db.Table("products").
-		Select("products.id", "products.name", "products.type", "product.quantity")
+		Select("products.id", "products.name", "products.type", "products.quantity")
 
 	tx = tx.Where(strings.Join(query, " AND "), args...)
 

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -16,7 +17,7 @@ import (
 
 func main() {
 
-	cfg, err := config.Load()
+	cfg, err := config.Load(os.Args)
 
 	if err != nil {
 		panic(err)

@@ -9,8 +9,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const localPath = "productapi/configs/%s.yml"
-const dockerPath = "configs/%s.yml"
+const localPath = "product-api/configs/%s.yml"
+const dockerPath = "product-api/configs/%s.yml"
 
 type Config struct {
 	Env   string `yaml:url`
