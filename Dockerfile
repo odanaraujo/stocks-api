@@ -8,4 +8,4 @@ FROM scratch
 WORKDIR /app
 COPY --from=build /app/api ./
 EXPOSE 8081
-CMD ["./api"]
+CMD ["./api", "env=docker"]
