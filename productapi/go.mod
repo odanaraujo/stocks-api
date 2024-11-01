@@ -1,6 +1,6 @@
 module github.com/odanaraujo/stocks-api
 
-go 1.23.1
+go 1.20
 
 require (
 	github.com/go-chi/chi/v5 v5.1.0

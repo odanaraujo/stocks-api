@@ -6,7 +6,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "/home/danaraujo/projects/backend/golang/microservice-golang/cmd",
+            "program": "/home/danaraujo/projects/backend/golang/microservice-golang/productapi/cmd",
             "env": {},
             "args": [],
             "showLog": true

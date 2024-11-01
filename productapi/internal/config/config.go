@@ -9,21 +9,21 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const localPath = "product-api/configs/%s.yml"
-const dockerPath = "product-api/configs/%s.yml"
+const localPath = "../configs/%s.yml"
+const dockerPath = "configs/%s.yml"
 
 type Config struct {
-	Env   string `yaml:url`
-	MySQL struct {
-		Url      string `yaml:url`
-		DB       string `yaml:db`
-		User     string `yaml:user`
-		Password string `password`
-	} `yaml:mysql`
+	Env   string `yaml:"env"`
+	Mysql struct {
+		Url      string `yaml:"url"`
+		Db       string `yaml:"db"`
+		User     string `yaml:"user"`
+		Password string `yaml:"password"`
+	} `yaml:"mysql"`
 }
 
 func (c *Config) Print() {
-	fmt.Printf("env=%s, mysql.url=%s, mysql.db=%s, mysql.user=%s, mysql.password=%s\n", c.Env, c.MySQL.Url, c.MySQL.DB, c.MySQL.User, c.MySQL.Password)
+	fmt.Printf("env=%s, mysql.url=%s, mysql.db=%s, mysql.user=%s, mysql.password=%s\n", c.Env, c.Mysql.Url, c.Mysql.Db, c.Mysql.User, c.Mysql.Password)
 }
 
 func Load(args []string) (*Config, error) {
@@ -38,11 +38,9 @@ func Load(args []string) (*Config, error) {
 	}
 
 	f, err := os.Open(fmt.Sprintf(path, env))
-
 	if err != nil {
 		return nil, err
 	}
-
 	defer f.Close()
 
 	cfg := &Config{}

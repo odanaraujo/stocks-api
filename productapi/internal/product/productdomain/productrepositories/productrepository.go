@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productentities"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productentities"
 	"gorm.io/gorm"
 )
 

@@ -3,7 +3,7 @@ package productdb
 import (
 	"fmt"
 
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productentities"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productentities"
 )
 
 var MemoryDB map[string]*productentities.Product

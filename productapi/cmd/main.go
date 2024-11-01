@@ -7,12 +7,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/odanaraujo/stocks-api/product-api/internal/config"
-	"github.com/odanaraujo/stocks-api/product-api/internal/mysql"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdb"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productrepositories"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productservice"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/producthttp"
+	"github.com/odanaraujo/stocks-api/internal/config"
+	"github.com/odanaraujo/stocks-api/internal/mysql"
+	"github.com/odanaraujo/stocks-api/internal/product/productdb"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productrepositories"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productservice"
+	"github.com/odanaraujo/stocks-api/internal/product/producthttp"
 )
 
 func main() {
@@ -23,15 +23,7 @@ func main() {
 		panic(err)
 	}
 
-	params := mysql.MysqlParams{
-		Url:           cfg.MySQL.Url,
-		NameDB:        cfg.MySQL.DB,
-		AdminUser:     cfg.MySQL.User,
-		AdminPassword: cfg.MySQL.Password,
-	}
-
-	db, err := mysql.Start(params)
-
+	db, err := mysql.Start(cfg.Mysql.Url, cfg.Mysql.Db, cfg.Mysql.User, cfg.Mysql.Password)
 	if err != nil {
 		panic(err)
 	}

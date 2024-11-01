@@ -3,9 +3,9 @@ package producthttp
 import (
 	"net/http"
 
-	"github.com/odanaraujo/stocks-api/product-api/internal/encode"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdecode"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productservice"
+	"github.com/odanaraujo/stocks-api/internal/encode"
+	"github.com/odanaraujo/stocks-api/internal/product/productdecode"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productservice"
 )
 
 type ProducHttp struct {

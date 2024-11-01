@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productentities"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productentities"
 )
 
 func DecodeProductFromBody(r *http.Request) (*productentities.Product, error) {

@@ -4,8 +4,8 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productentities"
-	"github.com/odanaraujo/stocks-api/product-api/internal/product/productdomain/productrepositories"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productentities"
+	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productrepositories"
 )
 
 type ProductService struct {
