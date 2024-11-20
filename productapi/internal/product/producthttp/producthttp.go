@@ -8,15 +8,17 @@ import (
 	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productservice"
 )
 
-type ProducHttp struct {
-	productService *productservice.ProductService
+type ProducHttp interface{}
+
+type producHttp struct {
+	productService productservice.ProductService
 }
 
-func New(productService *productservice.ProductService) *ProducHttp {
-	return &ProducHttp{productService: productService}
+func New(productService productservice.ProductService) *producHttp {
+	return &producHttp{productService: productService}
 }
 
-func (p *ProducHttp) GetProductByIDHandler(w http.ResponseWriter, r *http.Request) {
+func (p *producHttp) GetProductByIDHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	id, err := productdecode.DecodeStringIDFromURI(r)
 	if err != nil {
@@ -33,12 +35,12 @@ func (p *ProducHttp) GetProductByIDHandler(w http.ResponseWriter, r *http.Reques
 	encode.WriteJSONResponse(w, product, http.StatusOK)
 }
 
-func (p *ProducHttp) SearchProductsHandler(w http.ResponseWriter, r *http.Request) {
+func (p *producHttp) SearchProductsHandler(w http.ResponseWriter, r *http.Request) {
 
 	ctx := r.Context()
 	productType := productdecode.DecodeTypeQueryString(r)
 
-	matchedValues, err := p.productService.SearchProducts(ctx, productType)
+	matchedValues, err := p.productService.Search(ctx, productType)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -48,7 +50,7 @@ func (p *ProducHttp) SearchProductsHandler(w http.ResponseWriter, r *http.Reques
 	encode.WriteJSONResponse(w, matchedValues, http.StatusOK)
 }
 
-func (p *ProducHttp) CreateProductHandler(w http.ResponseWriter, r *http.Request) {
+func (p *producHttp) CreateProductHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	product, err := productdecode.DecodeProductFromBody(r)
 
@@ -66,7 +68,7 @@ func (p *ProducHttp) CreateProductHandler(w http.ResponseWriter, r *http.Request
 	encode.WriteJSONResponse(w, product, http.StatusOK)
 }
 
-func (p *ProducHttp) UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
+func (p *producHttp) UpdateProductHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 	productToUpdate, err := productdecode.DecodeProductFromBody(r)
 	if err != nil {
@@ -82,7 +84,7 @@ func (p *ProducHttp) UpdateProductHandler(w http.ResponseWriter, r *http.Request
 	encode.WriteJSONResponse(w, productToUpdate, http.StatusOK)
 }
 
-func (p *ProducHttp) DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
+func (p *producHttp) DeleteProductHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := productdecode.DecodeStringIDFromURI(r)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

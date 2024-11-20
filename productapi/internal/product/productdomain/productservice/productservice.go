@@ -8,15 +8,23 @@ import (
 	"github.com/odanaraujo/stocks-api/internal/product/productdomain/productrepositories"
 )
 
-type ProductService struct {
-	productRepository *productrepositories.ProductRepository
+type ProductService interface {
+	GetByID(_ context.Context, id string) (*productentities.Product, error)
+	Search(_ context.Context, productType string) ([]*productentities.Product, error)
+	Create(_ context.Context, product *productentities.Product) (*productentities.Product, error)
+	Update(_ context.Context, productToUpdate *productentities.Product) error
+	Delete(_ context.Context, id string) error
 }
 
-func New(productRepository *productrepositories.ProductRepository) *ProductService {
-	return &ProductService{productRepository: productRepository}
+type productService struct {
+	productRepository productrepositories.ProductRepository
 }
 
-func (p *ProductService) GetByID(ctx context.Context, id string) (*productentities.Product, error) {
+func New(productRepository productrepositories.ProductRepository) *productService {
+	return &productService{productRepository: productRepository}
+}
+
+func (p *productService) GetByID(ctx context.Context, id string) (*productentities.Product, error) {
 	product, err := p.productRepository.GetByID(ctx, id)
 
 	if err != nil {
@@ -26,7 +34,7 @@ func (p *ProductService) GetByID(ctx context.Context, id string) (*productentiti
 	return product, nil
 }
 
-func (p *ProductService) SearchProducts(ctx context.Context, productType string) ([]*productentities.Product, error) {
+func (p *productService) Search(ctx context.Context, productType string) ([]*productentities.Product, error) {
 	matchedValues, err := p.productRepository.Search(ctx, productType)
 
 	if err != nil {
@@ -36,7 +44,7 @@ func (p *ProductService) SearchProducts(ctx context.Context, productType string)
 	return matchedValues, nil
 }
 
-func (p *ProductService) Create(ctx context.Context, product *productentities.Product) (*productentities.Product, error) {
+func (p *productService) Create(ctx context.Context, product *productentities.Product) (*productentities.Product, error) {
 	id, err := uuid.NewUUID()
 	if err != nil {
 		return &productentities.Product{}, err
@@ -51,7 +59,7 @@ func (p *ProductService) Create(ctx context.Context, product *productentities.Pr
 	return product, nil
 }
 
-func (p *ProductService) Update(ctx context.Context, productToUpdate *productentities.Product) error {
+func (p *productService) Update(ctx context.Context, productToUpdate *productentities.Product) error {
 
 	if err := p.productRepository.Update(ctx, productToUpdate); err != nil {
 		return err
@@ -60,7 +68,7 @@ func (p *ProductService) Update(ctx context.Context, productToUpdate *productent
 	return nil
 }
 
-func (p *ProductService) Delete(ctx context.Context, id string) error {
+func (p *productService) Delete(ctx context.Context, id string) error {
 
 	if err := p.productRepository.Delete(ctx, id); err != nil {
 		return err
