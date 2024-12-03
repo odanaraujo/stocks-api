@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/odanaraujo/stocks-api/internal/observability/metrics/countermetrics"
+	"github.com/odanaraujo/stocks-api/internal/observability/metrics/histogrammetrics"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -49,7 +51,7 @@ func Send(metrics Metrics) {
 		isReliabilityError:  fmt.Sprintf("%v", metrics.HasReliabilityError),
 	}
 
-	countermetrics.Increment(counterMetrics.Metric{
+	countermetrics.Increment(countermetrics.Metric{
 		Name:   endpointRequestCounter,
 		Labels: labels,
 	})
